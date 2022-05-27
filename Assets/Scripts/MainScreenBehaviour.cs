@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 //Bugs:
 //pause and resume buttons change the gameplay w.r.t adding score, but they do not stop the functionality of OnDrag.
+//above bug is solved now.
 
 
 public  class MainScreenBehaviour : MonoBehaviour
@@ -28,19 +29,18 @@ public  class MainScreenBehaviour : MonoBehaviour
 
     public Text totalScoreText;
     public int totalScore;
-    // Start is called before the first frame update
+ 
 
     public Text dustbinItemCountText;
     public int dustbinItemCount;
 
     public Text finalScoreTxt;
-    /*  public Text finalFruitTxt;
-      public Text AccessoryText;
-      public Text TrekkingText;*/
-
+ 
     public Canvas mainScreen;
     public Canvas finalScreen;
+    public Canvas soundSettingCanvas;
 
+    public AudioSource bgMusic;
     void Start()
     {
           //120 seconds of time.
@@ -48,12 +48,20 @@ public  class MainScreenBehaviour : MonoBehaviour
         totalScore = 0;       
         //dustbinItemCount = 0;
         //dustbinItemCountText.text = dustbinItemCount.ToString();
+       /* if(bgMusic !=null)
+        {
+            bgMusic.Play();
+        }*/
     }
 
     private void Awake()
     {       
         timer = 25f;
         Instance = this;
+
+        /*mainScreen.GetComponent<Canvas>().enabled = true;
+        finalScreen.GetComponent<Canvas>().enabled = false;
+        soundSettingCanvas.GetComponent<Canvas>().enabled = false;*/
     }
 
     // Update is called once per frame
@@ -109,17 +117,35 @@ public  class MainScreenBehaviour : MonoBehaviour
     {   
        // inputManager.GetComponent<InputManager>().SetResumeGameBool(false);
         Time.timeScale = 0;
+        bgMusic.Pause();
     }
 
     public void ResumeGame()
     {  
         inputManager.GetComponent<InputManager>().SetResumeGameBool(true);
         Time.timeScale = 1;
+        bgMusic.Play();
     }
 
     public void IncDecDustbinCount()
     {
         dustbinItemCount ++;
         dustbinItemCountText.text = dustbinItemCount.ToString();
+    }
+
+    public void GoToSoundSettings()
+    {
+        PauseGame();
+       
+        soundSettingCanvas.gameObject.SetActive(true);    
+        mainScreen.gameObject.SetActive(false);
+        finalScreen.gameObject.SetActive(false);
+/*
+        soundSettingCanvas.GetComponent<Canvas>().enabled = true;
+        mainScreen.GetComponent<Canvas>().enabled = false;
+        finalScreen.GetComponent<Canvas>().enabled = false;
+      */
+
+
     }
 }
