@@ -47,6 +47,7 @@ public class BasketBehaviour : MonoBehaviour
                 Debug.Log(collision.name + " detected");
                 numberOfItemsInBucket++;
                 finalNumberOfItemsInBucketText.text = numberOfItemsInBucket.ToString();
+                MainScreenBehaviour.Instance.PlayCorrectShotOneTime();
             }
             else
             {
@@ -55,6 +56,7 @@ public class BasketBehaviour : MonoBehaviour
                 MainScreenBehaviour.Instance.DecreaseTotalScore(collision.GetComponent<ItemBehaviour>().bountyOnItem);
                 MainScreenBehaviour.Instance.IncDecDustbinCount();
                 collision.gameObject.SetActive(false);
+                MainScreenBehaviour.Instance.PlayWrongShotOneTime();
             }
         }
        

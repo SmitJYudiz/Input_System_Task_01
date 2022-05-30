@@ -17,6 +17,10 @@ public  class MainScreenBehaviour : MonoBehaviour
 
     public static MainScreenBehaviour Instance;
 
+    public AudioClip correctMatchClip;
+    public AudioClip wrongMatchClip;
+    
+
     public float timer;
     
     public Text timerText;
@@ -41,6 +45,7 @@ public  class MainScreenBehaviour : MonoBehaviour
     public Canvas soundSettingCanvas;
 
     public AudioSource bgMusic;
+
     void Start()
     {
           //120 seconds of time.
@@ -90,6 +95,8 @@ public  class MainScreenBehaviour : MonoBehaviour
             finalScoreTxt.text = totalScore.ToString() ;
             mainScreen.gameObject.SetActive(false);
             finalScreen.gameObject.SetActive(true);
+
+
 
         }
 
@@ -147,5 +154,14 @@ public  class MainScreenBehaviour : MonoBehaviour
       */
 
 
+    }
+    public void PlayCorrectShotOneTime()
+    {
+        bgMusic.PlayOneShot(correctMatchClip, 0.5f);
+    }
+
+    public void PlayWrongShotOneTime()
+    {
+        bgMusic.PlayOneShot(wrongMatchClip, 1);
     }
 }
